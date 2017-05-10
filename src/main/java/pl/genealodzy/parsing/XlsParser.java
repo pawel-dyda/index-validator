@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 
 import pl.genealodzy.model.ParseResult;
+import pl.genealodzy.model.ParseResultFactory;
 
 
 public class XlsParser implements Parser {
@@ -20,9 +21,10 @@ public class XlsParser implements Parser {
             
             HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
         } catch (OfficeXmlFileException e) {
-            e.printStackTrace();
+            // TODO: LOG
+            return ParseResultFactory.readError("xls.file.format.error");
         } catch (IOException e) {
-            e.printStackTrace();
+            return ParseResultFactory.readError("io.error");
         }
 
         return null;
